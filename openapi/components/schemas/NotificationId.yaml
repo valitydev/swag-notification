@@ -1,0 +1,4 @@
+description: Идентификатор уведомления
+type: string
+format: uuid
+readOnly: true

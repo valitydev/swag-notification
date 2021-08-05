@@ -1,0 +1,28 @@
+delete:
+  summary: Удалить уведомления
+  operationId: deleteNotifications
+  tags:
+    - notifications
+  parameters:
+    - $ref: '../components/parameters/requestId.yaml'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - notificationIds
+          properties:
+            notificationIds:
+              type: array
+              items:
+                $ref: ../components/schemas/NotificationId.yaml
+  responses:
+    '200':
+      description: Уведомления удалены
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml

@@ -1,0 +1,5 @@
+name: notificationId
+in: query
+required: true
+schema:
+  $ref: '../schemas/NotificationId.yaml'

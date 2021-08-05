@@ -1,0 +1,5 @@
+description: Статус уведомления
+type: string
+enum:
+  - read
+  - unread

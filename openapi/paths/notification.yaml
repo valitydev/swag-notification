@@ -1,0 +1,28 @@
+get:
+  summary: Получить список уведомлений
+  operationId: notificationList
+  tags:
+    - notifications
+  parameters:
+    - $ref: '../components/parameters/requestId.yaml'
+    - $ref: '../components/parameters/title.yaml'
+    - $ref: '../components/parameters/status.yaml'
+    - $ref: '../components/parameters/fromTime.yaml'
+    - $ref: '../components/parameters/toTime.yaml'
+    - $ref: '../components/parameters/limit.yaml'
+    - $ref: '../components/parameters/continuationToken.yaml'
+  responses:
+    '200':
+      description: Найденное уведомление
+      content:
+        application/json:
+          schema:
+            $ref: '../components/responses/NotificationSearchResult.yaml'
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      description: Уведомление не найдено

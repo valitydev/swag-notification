@@ -1,0 +1,6 @@
+name: title
+in: query
+required: false
+schema:
+  description: Заголовок уведомления
+  type: string

@@ -1,0 +1,25 @@
+description: Сущность уведомления
+type: object
+required:
+  - id
+  - createdAt
+  - status
+  - title
+  - content
+properties:
+  id:
+    $ref: './NotificationId.yaml'
+  createdAt:
+    description: Дата и время создания уведомления
+    type: string
+    format: date-time
+    readOnly: true
+  status:
+    $ref: './NotificationStatus.yaml'
+  title:
+    description: Заголовок уведомления
+    type: string
+  content:
+    description: Текст уведомления
+    type: string
+

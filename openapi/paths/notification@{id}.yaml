@@ -1,0 +1,39 @@
+get:
+  summary: Получить данные уведомления
+  operationId: notification
+  tags:
+    - notifications
+  parameters:
+    - $ref: '../components/parameters/requestId.yaml'
+    - $ref: '../components/parameters/notificationResourceId.yaml'
+  responses:
+    '200':
+      description: Найденное уведомление
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Notification.yaml'
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      description: Уведомление не найдено
+delete:
+  summary: Удалить уведомление
+  operationId: deleteNotification
+  tags:
+    - notifications
+  parameters:
+    - $ref: '../components/parameters/requestId.yaml'
+    - $ref: '../components/parameters/notificationResourceId.yaml'
+  responses:
+    '200':
+      description: Уведомление удалено
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+
