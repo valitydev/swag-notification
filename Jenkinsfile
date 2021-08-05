@@ -1,7 +1,7 @@
 #!groovy
 // -*- mode: groovy -*-
 
-build('openapi-notification', 'docker-host') {
+build('swag-notification', 'docker-host') {
     checkoutRepo()
     loadBuildUtils('build_utils')
 

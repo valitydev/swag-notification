@@ -9,14 +9,7 @@ delete:
     content:
       application/json:
         schema:
-          type: object
-          required:
-            - notificationIds
-          properties:
-            notificationIds:
-              type: array
-              items:
-                $ref: ../components/schemas/NotificationId.yaml
+          $ref: ../components/schemas/DeleteNotification.yaml
   responses:
     '200':
       description: Уведомления удалены

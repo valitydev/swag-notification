@@ -1,0 +1,8 @@
+type: object
+required:
+  - notificationIds
+properties:
+  notificationIds:
+    type: array
+    items:
+      $ref: ../schemas/NotificationId.yaml
