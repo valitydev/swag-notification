@@ -1,0 +1,559 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "RBKmoney Notification API",
+    "description": "RBKmoney Notification API\n",
+    "termsOfService": "http://rbk.money/",
+    "contact": {
+      "name": "RBKmoney support team",
+      "email": "support@rbk.money",
+      "url": "https://developer.rbk.money"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://{subdomain}.rbk.money/notify/{version}",
+      "variables": {
+        "subdomain": {
+          "default": "api"
+        },
+        "version": {
+          "enum": [
+            "v1"
+          ],
+          "default": "v1"
+        }
+      }
+    }
+  ],
+  "security": [
+    {
+      "bearer": []
+    }
+  ],
+  "paths": {
+    "/notification": {
+      "get": {
+        "summary": "Получить список уведомлений",
+        "operationId": "notificationList",
+        "tags": [
+          "notifications"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/requestId"
+          },
+          {
+            "$ref": "#/components/parameters/title"
+          },
+          {
+            "$ref": "#/components/parameters/status"
+          },
+          {
+            "$ref": "#/components/parameters/fromTime"
+          },
+          {
+            "$ref": "#/components/parameters/toTime"
+          },
+          {
+            "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/continuationToken"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Найденное уведомление",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotificationSearchResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "description": "Уведомление не найдено"
+          }
+        }
+      }
+    },
+    "/notification/{id}": {
+      "get": {
+        "summary": "Получить данные уведомления",
+        "operationId": "notification",
+        "tags": [
+          "notifications"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/requestId"
+          },
+          {
+            "$ref": "#/components/parameters/notificationResourceId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Найденное уведомление",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Notification"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "description": "Уведомление не найдено"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Удалить уведомление",
+        "operationId": "deleteNotification",
+        "tags": [
+          "notifications"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/requestId"
+          },
+          {
+            "$ref": "#/components/parameters/notificationResourceId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Уведомление удалено"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/notification/remove": {
+      "delete": {
+        "summary": "Удалить уведомления",
+        "operationId": "deleteNotifications",
+        "tags": [
+          "notifications"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/requestId"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteNotification"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Уведомления удалены"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/notification/mark": {
+      "post": {
+        "summary": "Отметить выбранные уведомления",
+        "operationId": "notificationMark",
+        "tags": [
+          "notifications"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/requestId"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MarkNotifications"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Уведомления отмечены"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/notification/mark/all": {
+      "post": {
+        "summary": "Отметить все уведомления",
+        "operationId": "notificationMarkAll",
+        "tags": [
+          "notifications"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/requestId"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MarkAllNotifications"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Уведомления отмечены"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Для аутентификации вызовов мы используем [JWT](https://jwt.io). Cоответствующий ключ передается в заголовке.\n```shell\n  Authorization: Bearer {TOKENIZATION|PRIVATE_JWT}\n```\n"
+      }
+    },
+    "parameters": {
+      "requestId": {
+        "name": "X-Request-ID",
+        "in": "header",
+        "description": "Уникальный идентификатор запроса к системе",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 32,
+          "example": "RQID-Z08G3EFE5DZ429VVO755BM19D51"
+        }
+      },
+      "title": {
+        "name": "title",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "description": "Заголовок уведомления",
+          "type": "string"
+        }
+      },
+      "status": {
+        "name": "status",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "$ref": "#/components/schemas/NotificationStatus"
+        }
+      },
+      "fromTime": {
+        "name": "fromTime",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "toTime": {
+        "name": "toTime",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "limit": {
+        "name": "limit",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "continuationToken": {
+        "name": "continuationToken",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "$ref": "#/components/schemas/ContinuationToken"
+        }
+      },
+      "notificationResourceId": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/NotificationId"
+        }
+      }
+    },
+    "schemas": {
+      "NotificationStatus": {
+        "description": "Статус уведомления",
+        "type": "string",
+        "enum": [
+          "read",
+          "unread"
+        ]
+      },
+      "ContinuationToken": {
+        "description": "Токен, сигнализирующий о том, что в ответе передана только часть данных.\nДля получения следующей части нужно повторно обратиться к сервису, указав тот же набор условий и полученый токен.\nЕсли токена нет, получена последняя часть данных.\n",
+        "type": "string"
+      },
+      "NotificationId": {
+        "description": "Идентификатор уведомления",
+        "type": "string",
+        "format": "uuid",
+        "readOnly": true
+      },
+      "Notification": {
+        "description": "Сущность уведомления",
+        "type": "object",
+        "required": [
+          "id",
+          "createdAt",
+          "status",
+          "title",
+          "content"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/NotificationId"
+          },
+          "createdAt": {
+            "description": "Дата и время создания уведомления",
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/NotificationStatus"
+          },
+          "title": {
+            "description": "Заголовок уведомления",
+            "type": "string"
+          },
+          "content": {
+            "description": "Текст уведомления",
+            "type": "string"
+          }
+        }
+      },
+      "NotificationSearchResult": {
+        "type": "object",
+        "required": [
+          "result"
+        ],
+        "properties": {
+          "continuationToken": {
+            "$ref": "#/components/schemas/ContinuationToken"
+          },
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Notification"
+            }
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "minimum": 100,
+            "maximum": 600,
+            "description": "The HTTP status code."
+          },
+          "error": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "description": "A URI reference [[RFC3986](https://tools.ietf.org/html/rfc3986)] that identifies the problem type. It should provide human-readable documentation for the problem type. When this member is not present, its value is assumed to be \"about:blank\"."
+          },
+          "title": {
+            "type": "string",
+            "description": "A short, human-readable summary of the problem type. It SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization."
+          }
+        }
+      },
+      "DeleteNotification": {
+        "type": "object",
+        "required": [
+          "notificationIds"
+        ],
+        "properties": {
+          "notificationIds": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NotificationId"
+            }
+          }
+        }
+      },
+      "MarkNotifications": {
+        "type": "object",
+        "required": [
+          "status",
+          "notificationIds"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "read",
+              "unread"
+            ]
+          },
+          "notificationIds": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NotificationId"
+            }
+          }
+        }
+      },
+      "MarkAllNotifications": {
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "read",
+              "unread"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "BadRequest": {
+        "description": "Переданы ошибочные данные",
+        "content": {
+          "application/json": {
+            "schema": {
+              "description": "Ошибка в переданных данных",
+              "type": "object",
+              "required": [
+                "code"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "enum": [
+                    "invalidRequest"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Unauthorized": {
+        "description": "Несанкционированный доступ, использовались неверные учетные данные.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "Forbidden": {
+        "description": "Access forbidden.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "Resource was not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      }
+    }
+  }
+}
