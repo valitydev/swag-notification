@@ -6,8 +6,8 @@
 
     <parent>
         <groupId>com.rbkmoney</groupId>
-        <artifactId>parent</artifactId>
-        <version>1.0.0</version>
+        <artifactId>library-parent-pom</artifactId>
+        <version>1.0.4</version>
     </parent>
 
     <artifactId>swag-notification</artifactId>
@@ -22,7 +22,6 @@
         <default.package>com.rbkmoney.openapi.notification</default.package>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven-plugin-version>1.0.0</maven-plugin-version>
-        <java.version>11</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <slf4j-version>1.7.21</slf4j-version>
