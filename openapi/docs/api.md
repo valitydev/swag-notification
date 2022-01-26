@@ -1,1 +1,1 @@
-RBKmoney Notification API
+Vality Notification API

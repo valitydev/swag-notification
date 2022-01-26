@@ -1,12 +1,12 @@
 openapi: 3.0.0
 info:
   version: 1.0.0
-  title: RBKmoney Notification API
+  title: Vality Notification API
   description:
     $ref: './docs/api.md'
   termsOfService: http://rbk.money/
   contact:
-    name: RBKmoney support team
+    name: Vality support team
     email: support@rbk.money
     url: 'https://developer.rbk.money'
   license:
